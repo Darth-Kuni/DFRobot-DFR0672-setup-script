@@ -28,7 +28,7 @@ Options:
 - `dfrobot-rgb.service` - runs RGB via `/usr/local/bin/dfrobot-rgb`
 
 ## RGB control
-Default is temperature-based color mapping. Use the control helper on the Pi:
+Default is temperature-based color mapping. The installer patches `rgb.c` so fixed colors work with RGB arguments. Use the control helper on the Pi:
 ```bash
 sudo dfrobot-rgbctl status
 sudo dfrobot-rgbctl disable

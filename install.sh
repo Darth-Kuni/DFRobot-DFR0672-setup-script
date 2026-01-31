@@ -65,6 +65,10 @@ cd temp_control
 if [[ -f "$SCRIPT_DIR/oled.c" ]]; then
   cp "$SCRIPT_DIR/oled.c" "$WORKDIR/temp_control/temp_control/oled.c"
 fi
+# Use custom rgb.c that accepts R G B arguments.
+if [[ -f "$SCRIPT_DIR/rgb.c" ]]; then
+  cp "$SCRIPT_DIR/rgb.c" "$WORKDIR/temp_control/temp_control/rgb.c"
+fi
 
 # Patch for Debian 13 toolchain
 if ! grep -q "#include <unistd.h>" fan_temp.c; then
