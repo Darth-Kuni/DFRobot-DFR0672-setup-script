@@ -43,7 +43,11 @@ sudo dfrobot-rgbctl warmwhite
 ```
 
 Preset colors:
-`red`, `green`, `blue`, `cyan`, `purple`, `orange`, `white`, `warmwhite`, `pink`
+`red`, `green`, `blue`, `cyan`, `purple`, `magenta`, `orange`, `yellow`, `white`, `warmwhite`, `coolwhite`,
+`pink`, `hotpink`, `deeppink`, `salmon`, `coral`, `tomato`, `gold`, `amber`, `lime`, `chartreuse`,
+`springgreen`, `seagreen`, `teal`, `turquoise`, `aquamarine`, `skyblue`, `deepskyblue`, `dodgerblue`,
+`navy`, `indigo`, `violet`, `plum`, `orchid`, `lavender`, `maroon`, `olive`, `mint`, `peach`,
+`brown`, `gray`, `grey`, `black`
 
 Configuration file:
 `/etc/dfrobot-rgb.conf`

@@ -51,20 +51,60 @@ case "$ACTION" in
     sed -i "s/^RAINBOW_DELAY=.*/RAINBOW_DELAY=$2/" /etc/dfrobot-rgb.conf
     systemctl restart dfrobot-rgb.service
     ;;
-  red)    "$0" fixed 255 0 0 ;;
-  green)  "$0" fixed 0 255 0 ;;
-  blue)   "$0" fixed 0 0 255 ;;
-  cyan)   "$0" fixed 0 255 255 ;;
-  purple) "$0" fixed 128 0 255 ;;
-  orange) "$0" fixed 255 128 0 ;;
-  white)  "$0" fixed 255 255 255 ;;
-  warmwhite) "$0" fixed 255 200 120 ;;
-  pink)   "$0" fixed 255 64 128 ;;
+  # preset colors
+  red)        "$0" fixed 255 0 0 ;;
+  green)      "$0" fixed 0 255 0 ;;
+  blue)       "$0" fixed 0 0 255 ;;
+  cyan)       "$0" fixed 0 255 255 ;;
+  purple)     "$0" fixed 128 0 255 ;;
+  magenta)    "$0" fixed 255 0 255 ;;
+  orange)     "$0" fixed 255 128 0 ;;
+  yellow)     "$0" fixed 255 255 0 ;;
+  white)      "$0" fixed 255 255 255 ;;
+  warmwhite)  "$0" fixed 255 200 120 ;;
+  coolwhite)  "$0" fixed 200 220 255 ;;
+  pink)       "$0" fixed 255 64 128 ;;
+  hotpink)    "$0" fixed 255 20 147 ;;
+  deeppink)   "$0" fixed 255 0 127 ;;
+  salmon)     "$0" fixed 250 128 114 ;;
+  coral)      "$0" fixed 255 127 80 ;;
+  tomato)     "$0" fixed 255 99 71 ;;
+  gold)       "$0" fixed 255 215 0 ;;
+  amber)      "$0" fixed 255 191 0 ;;
+  lime)       "$0" fixed 191 255 0 ;;
+  chartreuse) "$0" fixed 127 255 0 ;;
+  springgreen) "$0" fixed 0 255 127 ;;
+  seagreen)   "$0" fixed 46 139 87 ;;
+  teal)       "$0" fixed 0 128 128 ;;
+  turquoise)  "$0" fixed 64 224 208 ;;
+  aquamarine) "$0" fixed 127 255 212 ;;
+  skyblue)    "$0" fixed 135 206 235 ;;
+  deepskyblue) "$0" fixed 0 191 255 ;;
+  dodgerblue) "$0" fixed 30 144 255 ;;
+  navy)       "$0" fixed 0 0 128 ;;
+  indigo)     "$0" fixed 75 0 130 ;;
+  violet)     "$0" fixed 138 43 226 ;;
+  plum)       "$0" fixed 221 160 221 ;;
+  orchid)     "$0" fixed 218 112 214 ;;
+  lavender)   "$0" fixed 230 230 250 ;;
+  maroon)     "$0" fixed 128 0 0 ;;
+  olive)      "$0" fixed 128 128 0 ;;
+  mint)       "$0" fixed 152 255 152 ;;
+  peach)      "$0" fixed 255 203 164 ;;
+  brown)      "$0" fixed 165 42 42 ;;
+  gray)       "$0" fixed 128 128 128 ;;
+  grey)       "$0" fixed 128 128 128 ;;
+  black)      "$0" fixed 0 0 0 ;;
   status)
     systemctl status dfrobot-rgb.service --no-pager
     ;;
   *)
-    echo "usage: $0 {enable|disable|temp|fixed R G B|interval SECONDS|rainbow|speed SECONDS|red|green|blue|cyan|purple|orange|white|warmwhite|pink|status}" >&2
+    echo "usage: $0 {enable|disable|temp|fixed R G B|interval SECONDS|rainbow|speed SECONDS|PRESET|status}" >&2
+    echo "presets: red green blue cyan purple magenta orange yellow white warmwhite coolwhite" >&2
+    echo "         pink hotpink deeppink salmon coral tomato gold amber lime chartreuse" >&2
+    echo "         springgreen seagreen teal turquoise aquamarine skyblue deepskyblue" >&2
+    echo "         dodgerblue navy indigo violet plum orchid lavender maroon olive mint" >&2
+    echo "         peach brown gray grey black" >&2
     exit 1
     ;;
  esac
