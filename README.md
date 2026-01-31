@@ -42,6 +42,9 @@ sudo dfrobot-rgbctl red
 sudo dfrobot-rgbctl warmwhite
 ```
 
+Preset colors:
+`red`, `green`, `blue`, `cyan`, `purple`, `orange`, `white`, `warmwhite`, `pink`
+
 Configuration file:
 `/etc/dfrobot-rgb.conf`
 
