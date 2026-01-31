@@ -132,6 +132,7 @@ fi
 if [[ $INSTALL_RGB -eq 1 ]]; then
   sudo install -m 0755 "$SCRIPT_DIR/scripts/dfrobot-rgb.sh" /usr/local/bin/dfrobot-rgb
   sudo install -m 0755 "$SCRIPT_DIR/scripts/dfrobot-rgbctl" /usr/local/bin/dfrobot-rgbctl
+  sudo install -m 0755 "$SCRIPT_DIR/scripts/dfrobot-rainbow" /usr/local/bin/dfrobot-rainbow
   sudo install -m 0644 "$SCRIPT_DIR/dfrobot-rgb.conf" /etc/dfrobot-rgb.conf
 
   cat <<EOF | sudo tee /etc/systemd/system/dfrobot-rgb.service >/dev/null

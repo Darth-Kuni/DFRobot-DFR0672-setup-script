@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+WORKDIR="${1:-/home/biqu/dfrobot_dfr0672/temp_control/temp_control}"
+DELAY="${2:-1.0}"
+RGB_BIN="$WORKDIR/rgb"
+
+if [[ ! -x "$RGB_BIN" ]]; then
+  echo "missing rgb binary at $RGB_BIN" >&2
+  exit 1
+fi
+
+# Basic rainbow cycle (R->Y->G->C->B->M->R)
+COLORS=(
+  "255 0 0"
+  "255 128 0"
+  "255 255 0"
+  "0 255 0"
+  "0 255 255"
+  "0 0 255"
+  "128 0 255"
+  "255 0 255"
+)
+
+while true; do
+  for c in "${COLORS[@]}"; do
+    # shellcheck disable=SC2086
+    "$RGB_BIN" $c
+    sleep "$DELAY"
+  done
+done

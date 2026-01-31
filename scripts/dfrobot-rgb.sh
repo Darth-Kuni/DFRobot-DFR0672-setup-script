@@ -15,13 +15,16 @@ MODE="${MODE:-temp}"
 RGB_R="${RGB_R:-255}"
 RGB_G="${RGB_G:-255}"
 RGB_B="${RGB_B:-255}"
+RAINBOW_DELAY="${RAINBOW_DELAY:-1.0}"
 WORKDIR="${WORKDIR:-/home/biqu/dfrobot_dfr0672/temp_control/temp_control}"
 
 if [[ "$MODE" == "temp" ]]; then
   exec "$WORKDIR/rgb_temp"
 elif [[ "$MODE" == "fixed" ]]; then
   exec "$WORKDIR/rgb" "$RGB_R" "$RGB_G" "$RGB_B"
+elif [[ "$MODE" == "rainbow" ]]; then
+  exec /usr/local/bin/dfrobot-rainbow "$WORKDIR" "$RAINBOW_DELAY"
 else
-  echo "invalid MODE=$MODE (use temp|fixed)" >&2
+  echo "invalid MODE=$MODE (use temp|fixed|rainbow)" >&2
   exit 1
 fi
