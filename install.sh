@@ -6,6 +6,7 @@ set -euo pipefail
 # and installs systemd services for fan and OLED stats.
 
 ROLE="${1-}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [[ "$ROLE" == "--help" || "$ROLE" == "-h" ]]; then
   echo "Usage: ./install.sh [--fan] [--oled]"
@@ -52,6 +53,11 @@ git clone https://github.com/OldWang-666/temp_control.git
 cd temp_control
 unzip -o temp_control.zip
 cd temp_control
+
+# Use custom OLED pages (CPU temp, CPU usage, RAM usage) with 5s rotation.
+if [[ -f "$SCRIPT_DIR/oled.c" ]]; then
+  cp "$SCRIPT_DIR/oled.c" "$WORKDIR/temp_control/temp_control/oled.c"
+fi
 
 # Patch for Debian 13 toolchain
 if ! grep -q "#include <unistd.h>" fan_temp.c; then

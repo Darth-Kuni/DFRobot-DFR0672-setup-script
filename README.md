@@ -8,6 +8,7 @@ Setup and install script for the DFRobot Smart Cooling Hat (DFR0672) on Raspberr
 - Downloads the official DFRobot `temp_control` bundle
 - Applies minimal patches for Debian 13 toolchain compatibility
 - Builds fan + OLED binaries
+- Installs a custom OLED page layout (CPU temp, CPU usage %, RAM usage %) with 5s rotation
 - Installs systemd services for fan and OLED
 
 ## Usage
@@ -21,8 +22,8 @@ Options:
 - `./install.sh --oled` (OLED only)
 
 ## Services
-- `dfrobot-fan.service` ? runs `fan_temp`
-- `dfrobot-oled.service` ? runs `oled`
+- `dfrobot-fan.service` - runs `fan_temp`
+- `dfrobot-oled.service` - runs `oled`
 
 Check status:
 ```bash
@@ -34,6 +35,7 @@ sudo systemctl status dfrobot-oled.service
 - Tested on Debian 13 (trixie) on Raspberry Pi 4B.
 - wiringPi is installed from source because it is not in Debian repos.
 - OLED I2C should appear at `0x3c`, controller at `0x0d`.
+- OLED pages rotate every 5 seconds in this setup.
 
 ## References
 - DFRobot wiki: https://wiki.dfrobot.com/Smart_Cooling_Hat_For_Raspberry_Pi_4B_SKU_DFR0672
