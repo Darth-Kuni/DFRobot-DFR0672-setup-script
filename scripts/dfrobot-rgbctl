@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $EUID -ne 0 ]]; then
+  exec sudo "$0" "$@"
+fi
+
+ACTION="${1-}"
+
+case "$ACTION" in
+  enable)
+    systemctl enable --now dfrobot-rgb.service
+    systemctl status dfrobot-rgb.service --no-pager
+    ;;
+  disable)
+    systemctl disable --now dfrobot-rgb.service
+    systemctl status dfrobot-rgb.service --no-pager
+    ;;
+  temp)
+    sed -i 's/^MODE=.*/MODE=temp/' /etc/dfrobot-rgb.conf
+    systemctl restart dfrobot-rgb.service
+    ;;
+  fixed)
+    if [[ $# -ne 4 ]]; then
+      echo "usage: $0 fixed R G B" >&2
+      exit 1
+    fi
+    sed -i 's/^MODE=.*/MODE=fixed/' /etc/dfrobot-rgb.conf
+    sed -i "s/^RGB_R=.*/RGB_R=$2/" /etc/dfrobot-rgb.conf
+    sed -i "s/^RGB_G=.*/RGB_G=$3/" /etc/dfrobot-rgb.conf
+    sed -i "s/^RGB_B=.*/RGB_B=$4/" /etc/dfrobot-rgb.conf
+    systemctl restart dfrobot-rgb.service
+    ;;
+  status)
+    systemctl status dfrobot-rgb.service --no-pager
+    ;;
+  *)
+    echo "usage: $0 {enable|disable|temp|fixed R G B|status}" >&2
+    exit 1
+    ;;
+ esac

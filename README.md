@@ -9,6 +9,7 @@ Setup and install script for the DFRobot Smart Cooling Hat (DFR0672) on Raspberr
 - Applies minimal patches for Debian 13 toolchain compatibility
 - Builds fan + OLED binaries
 - Installs a custom OLED page layout (CPU temp, CPU usage %, RAM usage %) with 5s rotation
+- Installs an RGB service with selectable modes (temp-based or fixed RGB)
 - Installs systemd services for fan and OLED
 
 ## Usage
@@ -24,6 +25,20 @@ Options:
 ## Services
 - `dfrobot-fan.service` - runs `fan_temp`
 - `dfrobot-oled.service` - runs `oled`
+- `dfrobot-rgb.service` - runs RGB via `/usr/local/bin/dfrobot-rgb`
+
+## RGB control
+Default is temperature-based color mapping. Use the control helper on the Pi:
+```bash
+sudo dfrobot-rgbctl status
+sudo dfrobot-rgbctl disable
+sudo dfrobot-rgbctl enable
+sudo dfrobot-rgbctl temp
+sudo dfrobot-rgbctl fixed 255 64 0
+```
+
+Configuration file:
+`/etc/dfrobot-rgb.conf`
 
 Check status:
 ```bash

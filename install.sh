@@ -9,19 +9,26 @@ ROLE="${1-}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [[ "$ROLE" == "--help" || "$ROLE" == "-h" ]]; then
-  echo "Usage: ./install.sh [--fan] [--oled]"
+  echo "Usage: ./install.sh [--fan] [--oled] [--rgb]"
   echo "  --fan   install and enable fan_temp service"
   echo "  --oled  install and enable OLED stats service"
+  echo "  --rgb   install and enable RGB service (temp or fixed)"
   exit 0
 fi
 
 INSTALL_FAN=1
 INSTALL_OLED=1
+INSTALL_RGB=1
 
 if [[ "$ROLE" == "--fan" ]]; then
   INSTALL_OLED=0
+  INSTALL_RGB=0
 elif [[ "$ROLE" == "--oled" ]]; then
   INSTALL_FAN=0
+  INSTALL_RGB=0
+elif [[ "$ROLE" == "--rgb" ]]; then
+  INSTALL_FAN=0
+  INSTALL_OLED=0
 fi
 
 sudo apt-get update
@@ -120,6 +127,29 @@ WantedBy=multi-user.target
 EOF
   sudo systemctl daemon-reload
   sudo systemctl enable --now dfrobot-oled.service
+fi
+
+if [[ $INSTALL_RGB -eq 1 ]]; then
+  sudo install -m 0755 "$SCRIPT_DIR/scripts/dfrobot-rgb.sh" /usr/local/bin/dfrobot-rgb
+  sudo install -m 0755 "$SCRIPT_DIR/scripts/dfrobot-rgbctl" /usr/local/bin/dfrobot-rgbctl
+  sudo install -m 0644 "$SCRIPT_DIR/dfrobot-rgb.conf" /etc/dfrobot-rgb.conf
+
+  cat <<EOF | sudo tee /etc/systemd/system/dfrobot-rgb.service >/dev/null
+[Unit]
+Description=DFRobot Smart Cooling Hat RGB
+After=network-online.target
+
+[Service]
+WorkingDirectory=$WORKDIR/temp_control/temp_control
+ExecStart=/usr/local/bin/dfrobot-rgb
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  sudo systemctl daemon-reload
+  sudo systemctl enable --now dfrobot-rgb.service
 fi
 
 echo "Done."
