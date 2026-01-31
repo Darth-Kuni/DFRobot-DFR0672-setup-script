@@ -31,6 +31,14 @@ case "$ACTION" in
     sed -i "s/^RGB_B=.*/RGB_B=$4/" /etc/dfrobot-rgb.conf
     systemctl restart dfrobot-rgb.service
     ;;
+  interval)
+    if [[ $# -ne 2 ]]; then
+      echo "usage: $0 interval SECONDS" >&2
+      exit 1
+    fi
+    sed -i "s/^FIXED_INTERVAL=.*/FIXED_INTERVAL=$2/" /etc/dfrobot-rgb.conf
+    systemctl restart dfrobot-rgb.service
+    ;;
   rainbow)
     sed -i 's/^MODE=.*/MODE=rainbow/' /etc/dfrobot-rgb.conf
     systemctl restart dfrobot-rgb.service
@@ -56,7 +64,7 @@ case "$ACTION" in
     systemctl status dfrobot-rgb.service --no-pager
     ;;
   *)
-    echo "usage: $0 {enable|disable|temp|fixed R G B|rainbow|speed SECONDS|red|green|blue|cyan|purple|orange|white|warmwhite|pink|status}" >&2
+    echo "usage: $0 {enable|disable|temp|fixed R G B|interval SECONDS|rainbow|speed SECONDS|red|green|blue|cyan|purple|orange|white|warmwhite|pink|status}" >&2
     exit 1
     ;;
  esac

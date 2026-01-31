@@ -37,6 +37,7 @@ sudo dfrobot-rgbctl temp
 sudo dfrobot-rgbctl fixed 255 64 0
 sudo dfrobot-rgbctl rainbow
 sudo dfrobot-rgbctl speed 0.5
+sudo dfrobot-rgbctl interval 5
 sudo dfrobot-rgbctl red
 sudo dfrobot-rgbctl warmwhite
 ```
